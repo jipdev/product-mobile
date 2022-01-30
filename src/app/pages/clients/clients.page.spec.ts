@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { ClientsPage } from './clients.page';
 
-describe('Tab1Page', () => {
+describe('ClientsPage', () => {
   let component: ClientsPage;
   let fixture: ComponentFixture<ClientsPage>;
 
