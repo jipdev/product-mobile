@@ -1,0 +1,40 @@
+<form (ngSubmit)="submit()" [formGroup]="form" class="form">
+  <div class="form__control">
+    <ion-item lines="full">
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="hasError('name', 'required')" class="form__error" color="danger">Campo obrigatório!</ion-note>
+  </div>
+
+  <div class="form__control">
+    <ion-item lines="full">
+      <ion-label position="stacked">Fabricação</ion-label>
+      <ion-select formControlName="fabrication">
+        <ion-select-option value="NATIONAL">Nacional</ion-select-option>
+        <ion-select-option value="IMPORTED">Importado</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-note *ngIf="hasError('fabrication', 'required')" class="form__error" color="danger">Campo obrigatório!</ion-note>
+  </div>
+
+  <div class="form__control">
+    <ion-item lines="full">
+      <ion-label position="stacked">Preço</ion-label>
+      <ion-input formControlName="price" inputmode="number" min="0" type="number"></ion-input>
+      <ion-note slot="end">R$</ion-note>
+    </ion-item>
+    <ion-note *ngIf="hasError('price', 'required')" class="form__error" color="danger">Campo obrigatório!</ion-note>
+  </div>
+
+  <div class="form__control">
+    <ion-item lines="full">
+      <ion-label position="stacked">Tamanho</ion-label>
+      <ion-input formControlName="size" inputmode="number" min="0" type="number"></ion-input>
+      <ion-note slot="end">cm</ion-note>
+    </ion-item>
+    <ion-note *ngIf="hasError('size', 'required')" class="form__error" color="danger">Campo obrigatório!</ion-note>
+  </div>
+
+  <ion-button expand="block" type="submit">Salvar</ion-button>
+</form>

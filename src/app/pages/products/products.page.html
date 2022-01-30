@@ -1,5 +1,12 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
+    <ion-buttons *ngIf="!isRootUrl" slot="start">
+      <ion-button (click)="back()" size="small" type="button">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        Voltar
+      </ion-button>
+    </ion-buttons>
+
     <ion-title>
       Produtos
     </ion-title>

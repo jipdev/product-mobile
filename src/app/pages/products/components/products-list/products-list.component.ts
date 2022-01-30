@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Product } from '../../interfaces/product';
 import { ProductService } from '../../services/product.service';
 
@@ -12,17 +12,32 @@ import { ProductService } from '../../services/product.service';
 export class ProductsListComponent implements OnInit {
   products: Product[];
 
-  constructor(private service: ProductService, private router: Router, private toast: ToastController) {
+  constructor(
+    private service: ProductService,
+    private router: Router,
+    private toast: ToastController,
+    private loading: LoadingController,
+    private cd: ChangeDetectorRef
+  ) {
   }
 
   ngOnInit(): void {
     this.fetchProducts();
   }
 
-  fetchProducts(): void {
+  async fetchProducts(): Promise<void> {
+    const loading = await this.loading.create({
+      message: 'Carregando...',
+    });
+
+    await loading.present();
+
     this.service.findAll().subscribe({
       next: (products) => this.products = products,
       error: ({ error }) => this.showError(error.message)
+    }).add(() => {
+      loading.remove();
+      this.cd.detectChanges();
     });
   }
 
@@ -45,7 +60,8 @@ export class ProductsListComponent implements OnInit {
     const toast = await this.toast.create({
       message: message ?? 'Ocorreu um erro inesperado, tente novamente mais tarde!',
       color: 'danger',
-      position: 'top'
+      position: 'top',
+      duration: 800
     });
 
     await toast.present();
