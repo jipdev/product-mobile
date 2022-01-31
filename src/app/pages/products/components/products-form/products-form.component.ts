@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../../interfaces/product';
 
@@ -7,8 +7,9 @@ import { Product } from '../../interfaces/product';
   templateUrl: './products-form.component.html',
   styleUrls: ['./products-form.component.scss']
 })
-export class ProductsFormComponent implements OnInit {
+export class ProductsFormComponent implements OnInit, OnChanges {
   @Output() onSubmit = new EventEmitter<Product>();
+  @Input() initialValue!: Product;
 
   form!: FormGroup;
 
@@ -19,6 +20,12 @@ export class ProductsFormComponent implements OnInit {
     this.buildForm();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('initialValue' in changes && this.initialValue) {
+      this.updateForm();
+    }
+  }
+
   buildForm(): void {
     this.form = this.fb.group({
       name: [null, Validators.required],
@@ -26,6 +33,11 @@ export class ProductsFormComponent implements OnInit {
       price: [null, Validators.required],
       size: [null, Validators.required],
     });
+  }
+
+  updateForm(): void {
+    this.form.patchValue(this.initialValue);
+    this.form.updateValueAndValidity();
   }
 
   submit(): void {
