@@ -1,0 +1,39 @@
+<form (ngSubmit)="submit()" [formGroup]="form" class="form">
+  <div class="form__control">
+    <ion-item lines="full">
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="hasError('name', 'required')" class="form__error" color="danger">Campo obrigatório!</ion-note>
+  </div>
+
+  <div class="form__control">
+    <ion-item lines="full">
+      <ion-label position="stacked">E-mail</ion-label>
+      <ion-input formControlName="email"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="hasError('email', 'required')" class="form__error" color="danger">Campo obrigatório!</ion-note>
+    <ion-note *ngIf="hasError('email', 'email')" class="form__error" color="danger">E-mail com formato inválido!</ion-note>
+  </div>
+
+  <div class="form__control">
+    <ion-item lines="full">
+      <ion-label position="stacked">CPF</ion-label>
+      <ion-input [clearIfNotMatch]="true" formControlName="cpf" simpleMask="999.999.999-99"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="hasError('cpf', 'required')" class="form__error" color="danger">Campo obrigatório!</ion-note>
+  </div>
+
+  <div class="form__control">
+    <ion-item lines="full">
+      <ion-label position="stacked">Gênero</ion-label>
+      <ion-select formControlName="gender">
+        <ion-select-option value="MALE">Masculino</ion-select-option>
+        <ion-select-option value="FEMALE">Feminino</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-note *ngIf="hasError('gender', 'required')" class="form__error" color="danger">Campo obrigatório!</ion-note>
+  </div>
+
+  <ion-button expand="block" type="submit">Salvar</ion-button>
+</form>

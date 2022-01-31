@@ -5,28 +5,28 @@ import { Router } from '@angular/router';
 import { IonicModule, LoadingController, LoadingOptions, ToastController, ToastOptions } from '@ionic/angular';
 import { of, throwError } from 'rxjs';
 import { GENERIC_ERROR_MESSAGE } from '../../../../shared/constants/generic-error-message';
-import { ROOT_PRODUCT_URL } from '../../constants/root-product-url';
-import { Fabrication } from '../../enums/fabrication';
-import { Product } from '../../interfaces/product';
-import { ProductService } from '../../services/product.service';
-import { ProductsCreateComponent } from './products-create.component';
+import { ROOT_CLIENTS_URL } from '../../constants/root-client-url';
+import { Gender } from '../../enums/gender';
+import { Client } from '../../interfaces/client';
+import { ClientService } from '../../services/client.service';
+import { ClientsCreateComponent } from './clients-create.component';
 
 const loadingMock = {
   present: async () => null,
   remove: () => null
 };
 
-describe('ProductsCreateComponent', () => {
-  let component: ProductsCreateComponent;
-  let fixture: ComponentFixture<ProductsCreateComponent>;
+describe('ClientsCreateComponent', () => {
+  let component: ClientsCreateComponent;
+  let fixture: ComponentFixture<ClientsCreateComponent>;
   let router: Router;
-  let service: ProductService;
+  let service: ClientService;
   let toast: ToastController;
   let loading: LoadingController;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ProductsCreateComponent],
+      declarations: [ClientsCreateComponent],
       imports: [IonicModule.forRoot(), HttpClientModule],
       providers: [
         {
@@ -51,10 +51,10 @@ describe('ProductsCreateComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProductsCreateComponent);
+    fixture = TestBed.createComponent(ClientsCreateComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    service = TestBed.inject(ProductService);
+    service = TestBed.inject(ClientService);
     toast = TestBed.inject(ToastController);
     loading = TestBed.inject(LoadingController);
     fixture.detectChanges();
@@ -65,11 +65,11 @@ describe('ProductsCreateComponent', () => {
   });
 
   it('should be onSubmit', fakeAsync(() => {
-    const mock: Product = {
+    const mock: Client = {
       name: 'test',
-      size: 1,
-      price: 1,
-      fabrication: Fabrication.national
+      email: 'test@email',
+      cpf: '123123123123',
+      gender: Gender.male
     };
 
     const createLoadingSpy = spyOn(loading, 'create').and.returnValue(of(loadingMock as HTMLIonLoadingElement).toPromise());
@@ -92,7 +92,7 @@ describe('ProductsCreateComponent', () => {
   }));
 
   it('should be onSubmit when has error', fakeAsync(() => {
-    const mock = {} as Product;
+    const mock = {} as Client;
     const errorMock = {
       error: {
         message: ''
@@ -132,13 +132,13 @@ describe('ProductsCreateComponent', () => {
     tick();
 
     expect(createSpy).toHaveBeenCalledWith({
-      message: 'Produto criado com sucesso!',
+      message: 'Cliente criado com sucesso!',
       color: 'success',
       position: 'top',
       duration: 800
     });
     expect(presentSpy).toHaveBeenCalled();
-    expect(navigateByUrlSpy).toHaveBeenCalledWith(ROOT_PRODUCT_URL);
+    expect(navigateByUrlSpy).toHaveBeenCalledWith(ROOT_CLIENTS_URL);
   }));
 
   it('should be onSubmitError', fakeAsync(() => {

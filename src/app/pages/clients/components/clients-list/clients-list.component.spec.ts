@@ -16,7 +16,7 @@ const loadingCreateMock = {
   }
 };
 
-fdescribe('ClientsListComponent', () => {
+describe('ClientsListComponent', () => {
   let component: ClientsListComponent;
   let fixture: ComponentFixture<ClientsListComponent>;
   let router: Router;
