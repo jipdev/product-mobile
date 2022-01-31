@@ -6,6 +6,7 @@ import { SimpleMaskModule } from 'ngx-ion-simple-mask';
 import { ClientsPageRoutingModule } from './clients-routing.module';
 import { ClientsPage } from './clients.page';
 import { ClientsCreateComponent } from './components/clients-create/clients-create.component';
+import { ClientsEditComponent } from './components/clients-edit/clients-edit.component';
 import { ClientsFormComponent } from './components/clients-form/clients-form.component';
 import { ClientsListComponent } from './components/clients-list/clients-list.component';
 import { ClientService } from './services/client.service';
@@ -15,6 +16,7 @@ import { ClientService } from './services/client.service';
     ClientsPage,
     ClientsListComponent,
     ClientsCreateComponent,
+    ClientsEditComponent,
     ClientsFormComponent
   ],
   imports: [
